@@ -3,7 +3,7 @@
     <h1>API 文档</h1>
 
     <h2>网关地址</h2>
-    <p><code>https://api.yourservice.com/v1/chat/completions</code></p>
+    <p><code>https://api.xiaoqiangonline.shop/v1/chat/completions</code></p>
 
     <h2>认证</h2>
     <p>请求头携带：<code>Authorization: Bearer &lt;您的客户 API Key&gt;</code></p>
@@ -16,7 +16,7 @@
     </ul>
 
     <h2>示例：curl</h2>
-    <pre><code>curl -X POST https://api.yourservice.com/v1/chat/completions \
+    <pre><code>curl -X POST https://api.xiaoqiangonline.shop/v1/chat/completions \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"model":"deepseek-chat","messages":[{"role":"user","content":"Hello"}]}'</code></pre>
@@ -25,14 +25,14 @@
     <pre><code>import requests
 
 r = requests.post(
-  "https://api.yourservice.com/v1/chat/completions",
+  "https://api.xiaoqiangonline.shop/v1/chat/completions",
   headers={"Authorization": "Bearer YOUR_API_KEY", "Content-Type": "application/json"},
   json={"model": "deepseek-chat", "messages": [{"role": "user", "content": "Hello"}]}
 )
 print(r.json())</code></pre>
 
     <h2>示例：JavaScript</h2>
-    <pre><code>const res = await fetch("https://api.yourservice.com/v1/chat/completions", {
+    <pre><code>const res = await fetch("https://api.xiaoqiangonline.shop/v1/chat/completions", {
   method: "POST",
   headers: {
     "Authorization": "Bearer YOUR_API_KEY",

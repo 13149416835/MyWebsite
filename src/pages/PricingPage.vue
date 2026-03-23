@@ -23,7 +23,7 @@
 
     <div class="pay">
       <h2>付款方式</h2>
-      <p>通过 PayPal 付款至：<strong>your-paypal@example.com</strong></p>
+      <p>通过 PayPal 付款至：<strong>pay@xiaoqiangonline.shop</strong>（请替换为您的真实 PayPal 邮箱）</p>
       <p class="note">付款后请通过联系页告知，我们将为您创建 API Key 并设置对应额度。</p>
     </div>
   </section>

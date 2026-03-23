@@ -6,11 +6,11 @@
     <div class="channels">
       <div class="channel">
         <span class="label">Telegram</span>
-        <span class="value">@yourservice_support</span>
+        <span class="value">（请在此填写您的 Telegram）</span>
       </div>
       <div class="channel">
         <span class="label">邮箱</span>
-        <span class="value">support@yourservice.com</span>
+        <span class="value">support@xiaoqiangonline.shop</span>
       </div>
     </div>
   </section>

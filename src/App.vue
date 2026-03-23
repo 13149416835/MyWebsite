@@ -18,7 +18,7 @@
     </main>
 
     <footer class="footer">
-      <span>© {{ new Date().getFullYear() }} YourService</span>
+      <span>© {{ new Date().getFullYear() }} xiaoqiangonline.shop</span>
     </footer>
   </div>
 </template>
