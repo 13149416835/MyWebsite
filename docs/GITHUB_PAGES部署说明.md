@@ -1,6 +1,16 @@
 # GitHub Pages 部署说明（避免白屏）
 
-## 白屏常见原因
+## 控制台报错：`main.ts` + MIME `video/mp2t`
+
+说明浏览器在加载 **开发入口** `/src/main.ts`，**不是**打包后的 JS。很多服务器把 `.ts` 当成视频流，返回 `video/mp2t`，模块脚本被拒绝 → **整页空白**。
+
+**根因**：线上托管的是 **源码里的 `index.html`**（里面有 `<script src="/src/main.ts">`），而不是 **`npm run build` 生成的 `dist/index.html`**（里面是 `./assets/index-xxxx.js`）。
+
+**正确做法**：只发布 **`deliverable-1-site/dist/`** 里的文件；或使用本仓库 **`.github/workflows/deploy-deliverable-1-site.yml`**（Pages 源选 **GitHub Actions**），由 CI 自动 build 再部署。
+
+---
+
+## 白屏其他常见原因
 
 1. **上传了源码，没有上传 `dist` 构建结果**  
    必须上传 **`npm run build` 之后 `dist` 目录里的全部内容**（含 `index.html`、`404.html`、`assets` 文件夹、`.nojekyll`、`CNAME`），而不是上传整个 Vue 源码仓库根目录。
