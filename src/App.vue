@@ -78,7 +78,7 @@
 }
 .main {
   width: 100%;
-  max-width: 720px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 32px 22px 48px;
   flex: 1;
