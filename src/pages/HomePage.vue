@@ -3,107 +3,168 @@
     <!-- 介绍 -->
     <section id="top" class="block hero">
       <p class="lead">
-        OpenAI 兼容 Chat Completions，支持 SSE 流式与跨域。按 Token 计量额度，用量透明。
+        {{
+          siteLang === "en"
+            ? "OpenAI-compatible Chat Completions with SSE streaming and CORS support. Transparent token-based usage."
+            : "OpenAI 兼容 Chat Completions，支持 SSE 流式与跨域。按 Token 计量额度，用量透明。"
+        }}
       </p>
       <div class="actions">
-        <RouterLink class="btn primary" to="/docs">API 文档</RouterLink>
+        <RouterLink class="btn primary" to="/docs">{{ siteLang === "en" ? "API Docs" : "API 文档" }}</RouterLink>
       </div>
       <ul class="highlights">
-        <li>统一网关接入与独立客户 Key</li>
-        <li>自选模型（线路内白名单），预充 Token 额度</li>
+        <li>{{ siteLang === "en" ? "Unified gateway and independent customer API keys" : "统一网关接入与独立客户 Key" }}</li>
+        <li>{{ siteLang === "en" ? "Model choice by route whitelist with prepaid token quota" : "自选模型（线路内白名单），预充 Token 额度" }}</li>
       </ul>
     </section>
 
     <!-- 定价 -->
     <section id="pricing" class="block">
-      <h2>定价</h2>
-      <p class="muted">套餐为 Token 额度参考；付款后按套餐为您开通对应额度。支持 PayPal。</p>
+      <h2>{{ siteLang === "en" ? "Pricing" : "定价" }}</h2>
+      <p class="muted">
+        {{
+          siteLang === "en"
+            ? "Plans are token quota packages. After payment, we provision quota based on your selected package. PayPal is supported."
+            : "套餐为 Token 额度参考；付款后按套餐为您开通对应额度。支持 PayPal。"
+        }}
+      </p>
 
       <div class="pricing-table-wrap">
         <table class="pricing-table">
           <thead>
             <tr>
-              <th>套餐</th>
-              <th>价格</th>
-              <th>额度</th>
-              <th>适合人群</th>
+              <th>{{ siteLang === "en" ? "Plan" : "套餐" }}</th>
+              <th>{{ siteLang === "en" ? "Price" : "价格" }}</th>
+              <th>{{ siteLang === "en" ? "Quota" : "额度" }}</th>
+              <th>{{ siteLang === "en" ? "Recommended For" : "适合人群" }}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>体验包</td>
+              <td>{{ siteLang === "en" ? "Trial" : "体验包" }}</td>
               <td>$5</td>
-              <td>50 万 Token</td>
-              <td>试用、学生</td>
+              <td>{{ siteLang === "en" ? "0.5M tokens" : "50 万 Token" }}</td>
+              <td>{{ siteLang === "en" ? "Testing, students" : "试用、学生" }}</td>
             </tr>
             <tr>
-              <td>入门包</td>
+              <td>{{ siteLang === "en" ? "Starter" : "入门包" }}</td>
               <td>$20</td>
-              <td>250 万 Token</td>
-              <td>日常开发</td>
+              <td>{{ siteLang === "en" ? "2.5M tokens" : "250 万 Token" }}</td>
+              <td>{{ siteLang === "en" ? "Daily development" : "日常开发" }}</td>
             </tr>
             <tr>
-              <td>开发包</td>
+              <td>{{ siteLang === "en" ? "Developer" : "开发包" }}</td>
               <td>$50</td>
-              <td>700 万 Token</td>
-              <td>正式项目</td>
+              <td>{{ siteLang === "en" ? "7M tokens" : "700 万 Token" }}</td>
+              <td>{{ siteLang === "en" ? "Production projects" : "正式项目" }}</td>
             </tr>
             <tr>
-              <td>自定义</td>
-              <td>$10 起</td>
-              <td>按 $10 / 百万 Token 比例</td>
-              <td>灵活需求</td>
+              <td>{{ siteLang === "en" ? "Custom" : "自定义" }}</td>
+              <td>{{ siteLang === "en" ? "From $10" : "$10 起" }}</td>
+              <td>{{ siteLang === "en" ? "$10 per 1M tokens" : "按 $10 / 百万 Token 比例" }}</td>
+              <td>{{ siteLang === "en" ? "Flexible needs" : "灵活需求" }}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p class="note">
-        <strong>备注：</strong>50 万 Token 约相当于 <strong>500～1000 次</strong>对话（按每次对话平均消耗
-        <strong>500～1000 Token</strong>估算，含输入与输出）。实际用量因模型与使用方式而异。
+        <template v-if="siteLang === 'en'">
+          <strong>Note:</strong> 0.5M tokens are roughly equal to <strong>500-1000</strong> chats (assuming
+          <strong>500-1000 tokens</strong> per chat including input and output). Real usage varies by model and prompt style.
+        </template>
+        <template v-else>
+          <strong>备注：</strong>50 万 Token 约相当于 <strong>500～1000 次</strong>对话（按每次对话平均消耗
+          <strong>500～1000 Token</strong>估算，含输入与输出）。实际用量因模型与使用方式而异。
+        </template>
       </p>
 
-      <h3 class="subh">付款方式</h3>
+      <h3 class="subh">{{ siteLang === "en" ? "Payment" : "付款方式" }}</h3>
       <ol class="pay-steps">
-        <li>登录 PayPal，转账至：<strong>pay@xiaoqiangonline.shop</strong></li>
         <li>
-          转账时<strong>备注</strong>：您的邮箱 + Telegram 用户名（例如：<code>user@example.com @yourname</code>）
+          {{
+            siteLang === "en"
+              ? "Log in to PayPal and transfer to:"
+              : "登录 PayPal，转账至："
+          }}
+          <strong>pay@xiaoqiangonline.shop</strong>
         </li>
-        <li>转账成功后，通过 Telegram 联系 <strong>@yourtelegram</strong>，发送转账截图</li>
-        <li>工作日 <strong>2 小时内</strong>，将为您开通 API Key，并通过邮件 / Telegram 通知</li>
+        <li>
+          <template v-if="siteLang === 'en'">
+            Add this <strong>note</strong> to your transfer: your email + Telegram username (e.g.
+            <code>user@example.com @yourname</code>)
+          </template>
+          <template v-else>
+            转账时<strong>备注</strong>：您的邮箱 + Telegram 用户名（例如：<code>user@example.com @yourname</code>）
+          </template>
+        </li>
+        <li>
+          {{
+            siteLang === "en"
+              ? "After payment, contact"
+              : "转账成功后，通过 Telegram 联系"
+          }}
+          <strong>@yourtelegram</strong>
+          {{ siteLang === "en" ? "and send a screenshot of the transfer." : "，发送转账截图" }}
+        </li>
+        <li>
+          {{
+            siteLang === "en"
+              ? "On business days, your API key is usually activated within"
+              : "工作日"
+          }}
+          <strong>{{ siteLang === "en" ? "2 hours" : "2 小时内" }}</strong>
+          {{ siteLang === "en" ? ", and we notify you by email / Telegram." : "，将为您开通 API Key，并通过邮件 / Telegram 通知" }}
+        </li>
       </ol>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="block">
-      <h2>常见问题</h2>
+      <h2>{{ siteLang === "en" ? "FAQ" : "常见问题" }}</h2>
       <dl class="faq">
-        <dt>额度用完了怎么办？</dt>
-        <dd>我们会通过邮件 / Telegram 提前通知。续费后额度自动增加，API Key 不变。</dd>
-        <dt>支持流式输出吗？</dt>
-        <dd>支持。与官方 OpenAI 接口一样，请求体设置 <code>stream: true</code> 即可。</dd>
-        <dt>怎么查看剩余额度？</dt>
-        <dd>登录您的 API Key 管理后台（稍后提供），或直接联系我们查询。</dd>
-        <dt>网关稳定吗？</dt>
-        <dd>基于 Cloudflare 全球网络搭建，过去 3 个月可用性 99.9% 以上。</dd>
+        <template v-if="siteLang === 'en'">
+          <dt>What if my quota runs out?</dt>
+          <dd>We notify you in advance by email / Telegram. After recharge, quota increases automatically and your API key stays the same.</dd>
+          <dt>Do you support streaming output?</dt>
+          <dd>Yes. Same as OpenAI style API - set <code>stream: true</code> in request body.</dd>
+          <dt>How do I check remaining quota?</dt>
+          <dd>Use the balance API in docs, or contact us directly.</dd>
+          <dt>Is the gateway stable?</dt>
+          <dd>Built on Cloudflare global network, with 99.9%+ availability in recent months.</dd>
+        </template>
+        <template v-else>
+          <dt>额度用完了怎么办？</dt>
+          <dd>我们会通过邮件 / Telegram 提前通知。续费后额度自动增加，API Key 不变。</dd>
+          <dt>支持流式输出吗？</dt>
+          <dd>支持。与官方 OpenAI 接口一样，请求体设置 <code>stream: true</code> 即可。</dd>
+          <dt>怎么查看剩余额度？</dt>
+          <dd>登录您的 API Key 管理后台（稍后提供），或直接联系我们查询。</dd>
+          <dt>网关稳定吗？</dt>
+          <dd>基于 Cloudflare 全球网络搭建，过去 3 个月可用性 99.9% 以上。</dd>
+        </template>
       </dl>
     </section>
 
     <!-- 联系 -->
     <section id="contact" class="block">
-      <h2>联系</h2>
-      <p class="muted">技术支持与商务</p>
+      <h2>{{ siteLang === "en" ? "Contact" : "联系" }}</h2>
+      <p class="muted">{{ siteLang === "en" ? "Technical support and business inquiry" : "技术支持与商务" }}</p>
       <div class="contact-row">
         <span class="k">Telegram</span>
         <span class="v">@yourtelegram</span>
       </div>
       <div class="contact-row">
-        <span class="k">邮箱</span>
+        <span class="k">{{ siteLang === "en" ? "Email" : "邮箱" }}</span>
         <span class="v">support@xiaoqiangonline.shop</span>
       </div>
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { siteLang } from "../i18n";
+</script>
 
 <style scoped>
 .page {

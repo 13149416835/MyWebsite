@@ -6,8 +6,24 @@
         <span class="site">xiaoqiangonline.shop</span>
       </RouterLink>
       <nav class="nav">
-        <RouterLink to="/">主页</RouterLink>
-        <RouterLink to="/docs">文档</RouterLink>
+        <RouterLink to="/">{{ siteLang === "en" ? "Home" : "主页" }}</RouterLink>
+        <RouterLink to="/docs">{{ siteLang === "en" ? "Docs" : "文档" }}</RouterLink>
+        <button
+          type="button"
+          class="lang-btn"
+          :class="{ active: siteLang === 'en' }"
+          @click="setSiteLang('en')"
+        >
+          EN
+        </button>
+        <button
+          type="button"
+          class="lang-btn"
+          :class="{ active: siteLang === 'zh' }"
+          @click="setSiteLang('zh')"
+        >
+          中文
+        </button>
       </nav>
     </header>
 
@@ -20,6 +36,10 @@
     </footer>
   </div>
 </template>
+
+<script setup lang="ts">
+import { setSiteLang, siteLang } from "./i18n";
+</script>
 
 <style scoped>
 .layout {
@@ -75,6 +95,20 @@
 .nav a.router-link-active {
   color: #fff;
   background: rgba(255, 255, 255, 0.08);
+}
+.lang-btn {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: rgba(231, 233, 238, 0.78);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.lang-btn.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 .main {
   width: 100%;
