@@ -6,24 +6,21 @@
         <span class="site">xiaoqiangonline.shop</span>
       </RouterLink>
       <nav class="nav">
-        <RouterLink to="/">{{ siteLang === "en" ? "Home" : "主页" }}</RouterLink>
-        <RouterLink to="/docs">{{ siteLang === "en" ? "Docs" : "文档" }}</RouterLink>
-        <button
-          type="button"
-          class="lang-btn"
-          :class="{ active: siteLang === 'en' }"
-          @click="setSiteLang('en')"
-        >
-          EN
-        </button>
-        <button
-          type="button"
-          class="lang-btn"
-          :class="{ active: siteLang === 'zh' }"
-          @click="setSiteLang('zh')"
-        >
-          中文
-        </button>
+        <RouterLink to="/">{{ nav.home }}</RouterLink>
+        <RouterLink to="/docs">{{ nav.docs }}</RouterLink>
+        <label class="lang-select-wrap">
+          <span class="visually-hidden">Language</span>
+          <select
+            class="lang-select"
+            :value="siteLang"
+            aria-label="Language"
+            @change="onLangChange"
+          >
+            <option v-for="opt in LANG_SELECT_OPTIONS" :key="opt.value" :value="opt.value">
+              {{ opt.label }}
+            </option>
+          </select>
+        </label>
       </nav>
     </header>
 
@@ -38,7 +35,16 @@
 </template>
 
 <script setup lang="ts">
-import { setSiteLang, siteLang } from "./i18n";
+import { computed } from "vue";
+import { isSiteLang, setSiteLang, siteLang } from "./i18n";
+import { LANG_SELECT_OPTIONS, navUi } from "./siteUi";
+
+const nav = computed(() => navUi[siteLang.value]);
+
+function onLangChange(e: Event) {
+  const v = (e.target as HTMLSelectElement).value;
+  if (isSiteLang(v)) setSiteLang(v);
+}
 </script>
 
 <style scoped>
@@ -96,19 +102,41 @@ import { setSiteLang, siteLang } from "./i18n";
   color: #fff;
   background: rgba(255, 255, 255, 0.08);
 }
-.lang-btn {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: transparent;
-  color: rgba(231, 233, 238, 0.78);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 12px;
-  cursor: pointer;
+.lang-select-wrap {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
 }
-.lang-btn.active {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.28);
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.lang-select {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(231, 233, 238, 0.92);
+  border-radius: 8px;
+  padding: 8px 28px 8px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(231, 233, 238, 0.6) 50%),
+    linear-gradient(135deg, rgba(231, 233, 238, 0.6) 50%, transparent 50%);
+  background-position: calc(100% - 14px) calc(50% + 2px), calc(100% - 9px) calc(50% + 2px);
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  max-width: 140px;
+}
+.lang-select:focus {
+  outline: 2px solid rgba(94, 200, 255, 0.45);
+  outline-offset: 2px;
 }
 .main {
   width: 100%;
