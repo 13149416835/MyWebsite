@@ -14,18 +14,48 @@
 
     <template v-else-if="siteLang === 'zh'">
       <h1>API 文档</h1>
+      <p>提供 DeepSeek、智谱 GLM、MiniMax 等中国国产大模型 API，价格仅为国际模型的 1/10，稳定调用，支持日韩开发者。</p>
 
       <h2>网关地址</h2>
       <p>统一文本对话：<code>POST https://api.xiaoqiangonline.shop/v1/chat/completions</code>（按 <code>model</code> 走 DeepSeek / 智谱 / MiniMax）。</p>
       <p>
         <strong>流式输出（SSE）：</strong>在请求体中加入 <code>"stream": true</code>，响应为 <code>text/event-stream</code>（Server-Sent Events 分块），与 OpenAI Chat Completions 流式一致；客户端需按 <code>data:</code> 行解析增量内容，末包或最后一帧可能含 <code>usage</code> 用于计费。
       </p>
+      <p><strong>Python 流式接收示例（requests + stream=True）：</strong></p>
+      <pre><code>import json
+import requests
+
+url = "https://api.xiaoqiangonline.shop/v1/chat/completions"
+headers = {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json",
+}
+payload = {
+    "model": "deepseek-chat",
+    "stream": True,
+    "messages": [{"role": "user", "content": "你好"}],
+}
+
+with requests.post(url, headers=headers, json=payload, stream=True, timeout=120) as resp:
+    resp.raise_for_status()
+    for raw_line in resp.iter_lines(decode_unicode=True):
+        if not raw_line or not raw_line.startswith("data:"):
+            continue
+        data = raw_line[5:].strip()
+        if data == "[DONE]":
+            break
+        chunk = json.loads(data)
+        delta = chunk.get("choices", [{}])[0].get("delta", {})
+        text = delta.get("content")
+        if text:
+            print(text, end="", flush=True)</code></pre>
 
       <h2>扩展 REST 接口（GLM 线 / MiniMax 线）</h2>
       <p>
         除统一文本对话外，本平台在同一域名下提供更多 REST 入口。调用时请<strong>仅使用我方发放的 API Key</strong>（<code>Authorization: Bearer sk-...</code>），<strong>不要使用</strong>任何第三方平台控制台申请的 Key 访问本域名。
       </p>
       <p><strong>基址：</strong><code>https://api.xiaoqiangonline.shop</code></p>
+      <p class="model-options">非文本生成类接口（如图像、语音、视频）按次计费，每次成功调用固定消耗 <strong>5000</strong> Token。调用前请确保账户有足够余额。</p>
 
       <h2>模型</h2>
 
@@ -410,6 +440,7 @@ Content-Type: audio/wav
 
       <h2>认证</h2>
       <p>请求头携带：<code>Authorization: Bearer &lt;您的客户 API Key&gt;</code></p>
+      <p>请妥善保管您的 API Key，不要分享给他人或上传到公开代码仓库。</p>
 
       <h2>查询剩余额度</h2>
       <p>使用与对话接口相同认证方式，发起 <strong>GET</strong> 请求即可查询当前 Key 的剩余 Token 额度（不扣费）。</p>
@@ -426,6 +457,7 @@ Content-Type: audio/wav
       <ul>
         <li><code>401</code> — API Key 无效或未提供</li>
         <li><code>400</code> — 参数错误（如缺少 <code>messages</code> / <code>model</code>，或 <code>model</code> 不在网关支持的模型列表内）</li>
+        <li><code>402</code> — Token 额度不足</li>
       </ul>
     </template>
   </section>
@@ -444,43 +476,43 @@ import { siteLang } from "../i18n";
   flex-direction: column;
   gap: 16px;
 }
-h1 { font-size: 32px; margin: 0; }
-h2 { font-size: 18px; margin: 14px 0 6px 0; }
-h3 { font-size: 15px; margin: 12px 0 6px 0; color: rgba(231,233,238,0.85); }
-.model-table-wrap {
+.docs :deep(h1) { font-size: 32px; margin: 0; }
+.docs :deep(h2) { font-size: 18px; margin: 14px 0 6px 0; }
+.docs :deep(h3) { font-size: 15px; margin: 12px 0 6px 0; color: rgba(231,233,238,0.85); }
+.docs :deep(.model-table-wrap) {
   overflow-x: auto;
 }
-.model-table {
+.docs :deep(.model-table) {
   width: 100%;
   border-collapse: collapse;
   min-width: 760px;
 }
-.model-table--wide {
+.docs :deep(.model-table--wide) {
   min-width: 1280px;
 }
-.response-note {
+.docs :deep(.response-note) {
   display: block;
   margin-top: 8px;
   font-size: 11px;
   line-height: 1.4;
   color: rgba(231, 233, 238, 0.68);
 }
-.response-note--inline {
+.docs :deep(.response-note--inline) {
   display: inline;
   margin-top: 0;
 }
-.quota-note {
+.docs :deep(.quota-note) {
   display: block;
   margin-top: 6px;
   font-size: 11px;
   line-height: 1.45;
   color: rgba(200, 210, 230, 0.85);
 }
-.json-string-cell pre {
+.docs :deep(.json-string-cell pre) {
   font-size: 10px;
   line-height: 1.4;
 }
-.curl-cell pre {
+.docs :deep(.curl-cell pre) {
   margin: 0;
   padding: 8px 10px;
   border-radius: 8px;
@@ -491,47 +523,47 @@ h3 { font-size: 15px; margin: 12px 0 6px 0; color: rgba(231,233,238,0.85); }
   word-break: break-word;
   overflow-x: auto;
 }
-.curl-cell pre code {
+.docs :deep(.curl-cell pre code) {
   background: none;
   padding: 0;
   font-size: inherit;
 }
-.model-table th,
-.model-table td {
+.docs :deep(.model-table th),
+.docs :deep(.model-table td) {
   text-align: left;
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   vertical-align: top;
 }
-.model-table th {
+.docs :deep(.model-table th) {
   color: rgba(231,233,238,0.9);
   font-weight: 700;
 }
-.model-table td {
+.docs :deep(.model-table td) {
   color: rgba(231,233,238,0.86);
 }
-code {
+.docs :deep(code) {
   background: rgba(255,255,255,0.08);
   padding: 2px 6px;
   border-radius: 6px;
   font-size: 14px;
 }
-pre {
+.docs :deep(pre) {
   background: rgba(0,0,0,0.3);
   padding: 14px;
   border-radius: 12px;
   overflow-x: auto;
   margin: 0;
 }
-pre code {
+.docs :deep(pre code) {
   padding: 0;
   background: none;
 }
-ul {
+.docs :deep(ul) {
   margin: 0;
   padding-left: 20px;
 }
-.model-options {
+.docs :deep(.model-options) {
   font-size: 13px;
   line-height: 1.55;
   color: rgba(231,233,238,0.88);

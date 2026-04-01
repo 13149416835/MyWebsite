@@ -69,7 +69,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     h2: "Choose any supported model per request; gateway routes to the right provider automatically",
     pricingTitle: "Pricing",
     pricingMuted:
-      "Click the button to pay via PayPal. After payment, contact us on Telegram with your email and order screenshot to receive your API key within 2 hours.",
+      "Click the button to pay via PayPal. After payment, contact us on Telegram with your email and order screenshot to receive your API key within 2 hours. For other payment methods, contact the administrator.",
     thPlan: "Plan",
     thPrice: "Price",
     thQuota: "Quota",
@@ -123,7 +123,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     h1: "统一网关接入与独立客户 Key",
     h2: "按需在请求中选择模型，网关自动匹配对应上游线路",
     pricingTitle: "定价",
-    pricingMuted: "点击按钮通过 PayPal 付款，付款后联系 Telegram 并发送截图与邮箱，2 小时内发放 API Key。",
+    pricingMuted: "点击按钮通过 PayPal 付款，付款后联系 Telegram 并发送截图与邮箱，2 小时内发放 API Key。其它付款方式，联系管理员。",
     thPlan: "套餐",
     thPrice: "价格",
     thQuota: "额度",
@@ -177,7 +177,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     h2: "リクエストごとに対応モデルを選べば、ゲートウェイが自動で適切なプロバイダへルーティングします",
     pricingTitle: "料金",
     pricingMuted:
-      "ボタンをクリックして PayPal でお支払いください。支払い後、Telegram でスクリーンショットとメールアドレスをお送りいただくと、2 時間以内に API キーを発行します。",
+      "ボタンをクリックして PayPal でお支払いください。支払い後、Telegram でスクリーンショットとメールアドレスをお送りいただくと、2 時間以内に API キーを発行します。その他のお支払い方法は管理者までご連絡ください。",
     thPlan: "プラン",
     thPrice: "価格",
     thQuota: "枠",
@@ -232,7 +232,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     h2: "요청마다 지원 모델을 선택하면 게이트웨이가 자동으로 해당 공급자로 라우팅합니다",
     pricingTitle: "요금",
     pricingMuted:
-      "버튼을 클릭하여 PayPal로 결제하세요. 결제 후 Telegram으로 스크린샷과 이메일을 보내주시면 2시간 이내에 API 키를 발급합니다.",
+      "버튼을 클릭하여 PayPal로 결제하세요. 결제 후 Telegram으로 스크린샷과 이메일을 보내주시면 2시간 이내에 API 키를 발급합니다. 다른 결제 방법은 관리자에게 문의해 주세요.",
     thPlan: "플랜",
     thPrice: "가격",
     thQuota: "쿼터",

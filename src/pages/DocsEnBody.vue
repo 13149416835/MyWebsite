@@ -1,8 +1,44 @@
 <template>
       <h1>API Docs</h1>
+      <p>
+        We provide API access to leading Chinese LLMs including DeepSeek, Zhipu GLM, and MiniMax. Pricing is around
+        one-tenth of many international models, with stable invocation support for developers in Japan and Korea.
+      </p>
 
       <h2>Gateway Endpoint</h2>
       <p>Unified text chat: <code>POST https://api.xiaoqiangonline.shop/v1/chat/completions</code>（DeepSeek / Zhipu / MiniMax by <code>model</code>).</p>
+      <p>
+        <strong>Streaming output (SSE):</strong> add <code>"stream": true</code> in request body. The response is
+        <code>text/event-stream</code>, and clients should parse incrementally by <code>data:</code> lines.
+      </p>
+      <p><strong>Python streaming example (requests + stream=True):</strong></p>
+      <pre><code>import json
+import requests
+
+url = "https://api.xiaoqiangonline.shop/v1/chat/completions"
+headers = {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json",
+}
+payload = {
+    "model": "deepseek-chat",
+    "stream": True,
+    "messages": [{"role": "user", "content": "Hello"}],
+}
+
+with requests.post(url, headers=headers, json=payload, stream=True, timeout=120) as resp:
+    resp.raise_for_status()
+    for raw_line in resp.iter_lines(decode_unicode=True):
+        if not raw_line or not raw_line.startswith("data:"):
+            continue
+        data = raw_line[5:].strip()
+        if data == "[DONE]":
+            break
+        chunk = json.loads(data)
+        delta = chunk.get("choices", [{}])[0].get("delta", {})
+        text = delta.get("content")
+        if text:
+            print(text, end="", flush=True)</code></pre>
 
       <h2>Extended REST APIs (GLM line &amp; MiniMax line)</h2>
       <p>
@@ -10,6 +46,7 @@
         <strong>API key we issue to you</strong> (<code>Authorization: Bearer sk-...</code>). Do not use keys from any third-party console for calls to this host.
       </p>
       <p><strong>Base URL:</strong> <code>https://api.xiaoqiangonline.shop</code></p>
+      <p class="model-options">For non-text generation APIs (such as image, speech, and video), billing is per call. Each successful call consumes a fixed <strong>5000</strong> tokens. Please make sure your account has sufficient balance before calling.</p>
 
       <h2>Models</h2>
 
@@ -393,6 +430,7 @@ Content-Type: audio/wav
 
       <h2>Authentication</h2>
       <p>Header: <code>Authorization: Bearer &lt;your customer API key&gt;</code></p>
+      <p>Please keep your API key secure. Do not share it with others or upload it to public code repositories.</p>
 
       <h2>Check Remaining Quota</h2>
       <p>Use <strong>GET</strong> below with the same API key. It is read-only and does not consume quota.</p>
@@ -409,6 +447,7 @@ Content-Type: audio/wav
       <ul>
         <li><code>401</code> - missing/invalid API key</li>
         <li><code>400</code> - invalid parameters or unsupported <code>model</code></li>
+        <li><code>402</code> - insufficient token balance</li>
       </ul>
 
 </template>
