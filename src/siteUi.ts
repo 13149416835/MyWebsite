@@ -63,7 +63,7 @@ export type HomeCopy = {
 
 export const homeUi: Record<SiteLang, HomeCopy> = {
   en: {
-    lead: "Transparent token-based usage.",
+    lead: "We provide API access to leading Chinese LLMs including DeepSeek, Zhipu GLM, and MiniMax. Pricing is around one-tenth of many international models, with stable invocation support for developers in Japan and Korea.",
     apiDocs: "API Docs",
     h1: "Unified gateway and independent customer API keys",
     h2: "Choose any supported model per request; gateway routes to the right provider automatically",
@@ -118,7 +118,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     email: "Email",
   },
   zh: {
-    lead: "按 Token 计量额度，用量透明。",
+    lead: "提供 DeepSeek、智谱 GLM、MiniMax 等中国国产大模型 API，价格仅为国际模型的 1/10，稳定调用，支持日韩开发者。",
     apiDocs: "API 文档",
     h1: "统一网关接入与独立客户 Key",
     h2: "按需在请求中选择模型，网关自动匹配对应上游线路",
@@ -171,7 +171,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     email: "邮箱",
   },
   ja: {
-    lead: "トークンに基づく従量制で、利用量が分かりやすい構成です。",
+    lead: "DeepSeek・智譜 GLM・MiniMax など中国国産大規模モデル API を提供します。価格は国際系モデルの約 1/10 で、安定した呼び出し品質を維持し、日本・韓国の開発者にも対応しています。",
     apiDocs: "API ドキュメント",
     h1: "統一ゲートウェイとお客様専用 API キー",
     h2: "リクエストごとに対応モデルを選べば、ゲートウェイが自動で適切なプロバイダへルーティングします",
@@ -226,7 +226,7 @@ export const homeUi: Record<SiteLang, HomeCopy> = {
     email: "メール",
   },
   ko: {
-    lead: "토큰 기준 과금으로 사용량이 투명합니다.",
+    lead: "DeepSeek, Zhipu GLM, MiniMax 등 중국산 대형 모델 API를 제공합니다. 가격은 국제 모델 대비 약 1/10 수준이며, 안정적인 호출 품질로 일본/한국 개발자를 지원합니다.",
     apiDocs: "API 문서",
     h1: "통합 게이트웨이와 고객별 독립 API 키",
     h2: "요청마다 지원 모델을 선택하면 게이트웨이가 자동으로 해당 공급자로 라우팅합니다",
